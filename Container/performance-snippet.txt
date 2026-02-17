@@ -1,0 +1,31 @@
+(() => {
+  const t = performance.timing;
+  const nav = t.navigationStart;
+  
+  const phases = [
+    ['Navigation → Fetch Start', t.fetchStart - nav],
+    ['DNS Lookup', t.domainLookupEnd - t.domainLookupStart],
+    ['TCP Connect', t.connectEnd - t.connectStart],
+    ['Request → Response (TTFB)', t.responseStart - t.requestStart],
+    ['Response Download', t.responseEnd - t.responseStart],
+    ['Response → DOM Loading', t.domLoading - t.responseEnd],
+    ['DOM Loading → Interactive', t.domInteractive - t.domLoading],
+    ['Interactive → DOMContentLoaded', t.domContentLoadedEventEnd - t.domInteractive],
+    ['DOMContentLoaded → Complete', t.domComplete - t.domContentLoadedEventEnd],
+    ['Load Event', t.loadEventEnd - t.loadEventStart],
+    ['─────────────────────────', '─────'],
+    ['TOTAL (navStart → loadEnd)', t.loadEventEnd - nav],
+  ];
+
+  console.log('\n📊 Page Load Timeline\n');
+  let msg = '';
+  phases.forEach(([label, ms]) => {
+    const duration = typeof ms === 'number' ? `${ms}ms` : ms;
+    const warning = ms > 100 ? ' ⚠️' : '';
+    msg += `${label.padEnd(35)} ${duration}${warning}\n`;
+  });
+
+  console.log(msg);
+  
+  console.log(`\n💾 Memory: ${(performance.memory?.usedJSHeapSize / 1024 / 1024).toFixed(1)} MB used\n`);
+})();

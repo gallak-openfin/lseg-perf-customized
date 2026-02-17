@@ -1,0 +1,36 @@
+{
+  "licenseKey": "d4d333fa-c496-44f1-ba5a-6e37655e1f20",
+  "runtime": {
+    "_arguments": "--v=1 --disable-field-trial-config --trace-startup --trace-startup-record-mode=record-continuously --trace-startup-file=/Users/george/code/scratch/lseg-perf/trace-container-async.json",
+    "__arguments": "--disable-field-trial-config",
+    "arguments": "--disable-field-trial-config --async-fin-injection",
+    "_version": "42.138.103.2",
+    "1version": "42.138.103.4",
+    "__version": "alpha-v43",
+    "version": "42.138.103.903"
+  },
+  "platform": {
+    "uuid": "ten-windows-container-app",
+    "autoShow": true,
+    "providerUrl": "http://localhost:3002/Container/main.html",
+    "_viewProcessAffinityStrategy": "different",
+    "enableAppLogging": false,
+    "_defaultWindowOptions": {
+      "_url": "http://localhost:53000/platform-window"
+    },
+    "_defaultViewOptions": {
+      "api": {
+        "iframe": {
+          "sameOriginInjection": false
+        }
+      }
+    }
+  },
+  "shortcut": {
+    "company": "OpenFin",
+    "description": "Ten Windows Container (Core API)",
+    "___icon": "https://openfin.co/favicon.ico",
+    "name": "Ten Windows Container",
+    "target": []
+  }
+}

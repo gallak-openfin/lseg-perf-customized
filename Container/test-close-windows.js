@@ -1,0 +1,61 @@
+// Close windows functionality
+
+async function handleCloseWindows(targetIdentity, testState, sendStatus) {
+  sendStatus(targetIdentity, {
+    type: "info",
+    message: "Closing all windows...",
+  });
+
+  try {
+    const platform = fin.Platform.getCurrentSync();
+    const closedPromises = [];
+    globalThis.Perfs.startClose(testState.windows.size);
+    testState.windows.forEach(async (window, windowName) => {
+      try {
+        const closedPromise = new Promise((resolve) => {
+          window.addListener("closed", () => {
+            globalThis.Perfs.closed(windowName);
+            sendStatus(targetIdentity, {
+              type: "success",
+              message: `✓ Window ${windowName} closed`,
+            });
+            resolve();
+          });
+        });
+
+        closedPromises.push(closedPromise);
+        globalThis.Perfs.closing(windowName);
+        await platform.closeWindow({ name: windowName, uuid: fin.me.uuid });
+      } catch (error) {
+        sendStatus(targetIdentity, {
+          type: "error",
+          message: `⚠ Window ${windowName} already closed or error: ${error.message}`,
+        });
+      }
+    });
+
+    await Promise.all(closedPromises);
+
+    testState.windows = new Map();
+
+    globalThis.Perfs.doneClose();
+    sendStatus(targetIdentity, {
+      type: "success",
+      message: "✓ All windows closed",
+      summary: globalThis.Perfs.summary(),
+      completed: true,
+    });
+  } catch (error) {
+    console.error("Error closing windows:", error);
+    sendStatus(targetIdentity, {
+      type: "error",
+      message: `❌ Error closing windows: ${error.message}`,
+    });
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.closeWindows = {
+    handleCloseWindows,
+  };
+}

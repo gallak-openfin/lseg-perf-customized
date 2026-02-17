@@ -1,0 +1,20 @@
+{
+  "licenseKey": "d4d333fa-c496-44f1-ba5a-6e37655e1f20",
+  "runtime": {
+    "arguments": "--disable-field-trial-config",
+    "version": "alpha-v43"
+  },
+  "platform": {
+    "uuid": "ten-windows-container-app",
+    "_autoShow": true,
+    "providerUrl": "http://localhost:3001/Container/main.html",
+    "viewProcessAffinityStrategy": "different"
+  },
+  "shortcut": {
+    "company": "OpenFin",
+    "description": "Ten Windows Container (Core API)",
+    "icon": "https://openfin.co/favicon.ico",
+    "name": "Ten Windows Container",
+    "target": []
+  }
+}
